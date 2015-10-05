@@ -1,0 +1,10 @@
+docker rm --force `docker ps -qa`
+
+docker run --name redis1 redis
+docker run --name redis2 redis
+docker build -t toldwin/dockerdemo1 .
+#editer le app.py1
+docker build -t toldwin/dockerdemo2 .
+docker run --name py1 -p 5000:5000 --link redis1:redis toldwin/dockerdemo1
+docker run --name py2 -p 5001:5000 --link redis2:redis toldwin/dockerdemo2
+docker run --name py3 -p 5002:5000 --link redis:redis toldwin/dockerdemo1
